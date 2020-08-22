@@ -17,7 +17,7 @@ const init = async () => {
         extended: true
     }))
 
-    await mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_URI}/Images?retryWrites=true&w=majority`, {
+    await mongoose.connect(`mongodb://${process.env.MONGO_URI}/Images`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
