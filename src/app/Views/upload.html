@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageBin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+
+    <style>
+        .form-file * {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container d-flex flex-column justify-content-center"
+        style="width: 98vw; height: 90vh; max-width: 768px; max-height: 90vh">
+        <div class="d-block text-center header">
+            <h2>
+                oitsjustjose's Image Bin
+            </h2>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-file mb-3">
+                <input type="file" class="form-file-input" id="image"  name="image" accept="image/*" required>
+                <label class="form-file-label" for="image">
+                    <span class="form-file-text">Upload an image...</span>
+                    <span class="form-file-button">Browse</span>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary d-block m-auto" disabled>Upload!</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.forms[0];
+
+        form.addEventListener('change', (evt) => {
+            const filename = evt.target.files[0].name;
+            form.querySelector('.form-file-text').innerText = filename;
+            form.querySelector('.btn[type=submit]').removeAttribute('disabled')
+        })
+    </script>
+</body>
+
+</html>

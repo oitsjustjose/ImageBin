@@ -1,0 +1,30 @@
+{
+  "name": "img_paste",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/app.js",
+  "scripts": {
+    "serve-debug": "nodemon --inspect dist/app.js",
+    "watch-ts": "tsc -w",
+    "debug": "npm run build && npm run watch-debug",
+    "build": "gulp build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/express": "^4.17.7",
+    "@types/mongoose": "^5.7.31",
+    "@types/multer": "^1.4.4",
+    "@types/shortid": "0.0.29",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "mongoose": "^5.9.23",
+    "multer": "^1.4.2",
+    "shortid": "^2.2.15",
+    "typescript": "^3.9.6"
+  }
+}
