@@ -6,12 +6,14 @@ import mongoose from 'mongoose'
 import multer from 'multer'
 import path from 'path'
 import * as routes from './app/routes'
+import {mw as RipMw} from 'request-ip'
 
 config()
 
 const init = async () => {
     const app = express()
 
+    app.use(RipMw())
     app.use(json())
     app.use(urlencoded({
         extended: true
