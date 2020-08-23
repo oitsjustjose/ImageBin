@@ -13,8 +13,8 @@ export const use = (app: Application, uploader: Multer) => {
         const img = await Image.findById(req.params.slug)
 
         if (img) {
-            res.contentType(img.contentType)
-            res.send(img.data)
+            res.contentType(img.img.contentType)
+            res.send(img.img.data)
         } else {
             res.status(404).end()
         }
@@ -22,13 +22,27 @@ export const use = (app: Application, uploader: Multer) => {
 
     app.post("/", uploader.single('image'), async (req, res) => {
         const fp = path.join(__dirname + '/Uploads/' + req.file.filename)
-        const img = new Image({
-            data: fs.readFileSync(fp),
-            contentType: req.file.mimetype
-        })
-        await img.save()
+        const data = fs.readFileSync(fp)
+        fs.unlinkSync(fp)
 
-        res.redirect(`/${img._id}`)
-        // fs.unlinkSync(fp)
+        const images = await Image.find()
+
+        for (const img of images) {
+            if (img.img.data.compare(data) === 0) {
+                /* If some other IP uploads, we want to add them too */
+                img.uploaders.push(req.clientIp as string)
+                await img.save()
+                return res.redirect(`/${img._id}`)
+            }
+        }
+
+        const img = new Image()
+
+        img.img.contentType = req.file.mimetype
+        img.img.data = data
+        img.uploaders = req.clientIp ? [req.clientIp as string] : []
+
+        await img.save()
+        return res.redirect(`/${img._id}`)
     })
 }
